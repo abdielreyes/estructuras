@@ -41,16 +41,16 @@ typedef struct Personas{
     int edad;
     Telefono *telefono;
 }Persona;
-void crearPersonas(Persona *);
+void crearPersonas(Persona *,int*);
 void crearTelefonos(Telefono *);
-void mostrarDatos(Persona *);
+void mostrarDatos(Persona *,int*);
 int main(int argc, char const *argv[])
 {
     Persona *personas;
+    int tama;
+    crearPersonas(personas,&tama);
     
-    crearPersonas(personas);
-    
-    mostrarDatos(personas);
+    //mostrarDatos(personas,tama);
     free(personas);
     return 0;
 }
@@ -69,13 +69,13 @@ void crearTelefonos(Telefono *telefono){
         scanf("%d",&telefono[i].oficina);
     }
 }
-void crearPersonas(Persona *gente){
-    int tam,i;
+void crearPersonas(Persona *gente, int *tam){
+    int i;
     printf("\nCuantas personas registrarás?");
-    scanf("%d",&tam); 
-    gente = (Persona *)malloc(tam*sizeof(Persona));
+    scanf("%d",tam); 
+    gente = (Persona *)malloc((*tam)*sizeof(Persona));
     if(gente == NULL) printf("No hay memoria disponible\n"); 
-    for (i = 0; i < tam; i++)
+    for (i = 0; i < *tam; i++)
     {
         printf("\n Como se llama la persona %d ? ",(i+1));
         scanf("%s",gente[i].nombre);
@@ -88,9 +88,12 @@ void crearPersonas(Persona *gente){
         crearTelefonos(gente[i].telefono);
     }
     
+    
+    
+    
 }
-void mostrarDatos(Persona *persona){
-    int sizePersona = sizeof(persona)/sizeof(persona[0]);
+void mostrarDatos(Persona *persona,int *tama){
+    int sizePersona = *tama;
     int sizeTelefono;
     printf("%d",sizePersona);
     int i,j;

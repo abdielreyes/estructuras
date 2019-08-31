@@ -45,7 +45,7 @@ void solicitarDatos(Libro* lib);
 void mostrarDatos(Libro* lib);
 void liberar(Libro* lib);
 
-int main(int argc, char const *argv[])
+int main()
 {
     Libro  * lib;
     crearLibro(lib);
@@ -64,10 +64,11 @@ void crearLibro(Libro* lib){
 }
 void solicitarDatos(Libro* lib){
     printf("Introduzca el titulo\n");
-    scanf("%[^\n]",lib->titulo);
+    scanf("%s",lib->titulo);
     getchar();
     printf("Introduzca el autor \n");
-    scanf("%[^\n]",lib->autor);
+    scanf("%s",lib->autor);
+    getchar();
     printf("Introduzca el precio \n");
     scanf("%f",&lib->precio);
     printf("Introduzca el anio \n");
