@@ -1,4 +1,4 @@
-// The MIT License (MIT)
+/ The MIT License (MIT)
 
 // Copyright (c) 2019 Abdiel Reyes
 
@@ -22,11 +22,11 @@
 /*
   ,           , 
  /             \ 
-((__-^^-,-^^-__)) 
+((_-^^-,-^^-_)) 
  `-_---' `---_-' 
-  `--|o` 'o|--' 
+  --|o 'o|--' 
      \  `  / 
-      ): :( 
+      ): 😞 
       :o_o: 
        "-" 
 */
@@ -34,13 +34,13 @@
 #include <stdlib.h>
 typedef struct
 {   
-    char titulo[30];
-    char autor[30];
+    char titulo[256];
+    char autor[256];
     float precio;
     int anio;
 }Libro;
     
-void crearLibro(Libro* lib);
+Libro* crearLibro(Libro* lib);
 void solicitarDatos(Libro* lib);
 void mostrarDatos(Libro* lib);
 void liberar(Libro* lib);
@@ -48,27 +48,26 @@ void liberar(Libro* lib);
 int main()
 {
     Libro  * lib;
-    crearLibro(lib);
+    lib = crearLibro(lib);
     solicitarDatos(lib);
     mostrarDatos(lib);
     liberar(lib);
     
     return 0;
 }
-void crearLibro(Libro* lib){
+Libro* crearLibro(Libro* lib){
     lib = (Libro*)malloc(sizeof(Libro));
     if(lib == NULL){
         printf("No hay memoria disponible");
         exit(0);
     }
+    return lib;
 }
 void solicitarDatos(Libro* lib){
     printf("Introduzca el titulo\n");
     scanf("%s",lib->titulo);
-    getchar();
     printf("Introduzca el autor \n");
     scanf("%s",lib->autor);
-    getchar();
     printf("Introduzca el precio \n");
     scanf("%f",&lib->precio);
     printf("Introduzca el anio \n");
@@ -83,4 +82,3 @@ void mostrarDatos(Libro* lib){
 void liberar(Libro* lib){
     free(lib);
 }
-

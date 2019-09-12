@@ -41,20 +41,27 @@ typedef struct Personas{
     int edad;
     Telefono *telefono;
 }Persona;
-void crearPersonas(Persona *,int*);
-void crearTelefonos(Telefono *);
-void mostrarDatos(Persona *,int*);
+Persona* crearPersonas(Persona *,int);
+Telefono* crearTelefonos(Telefono *);
+void mostrarDatos(Persona *,int);
+void longitud(int*);
 int main(int argc, char const *argv[])
 {
     Persona *personas;
-    int tama;
-    crearPersonas(personas,&tama);
-    
-    //mostrarDatos(personas,tama);
-    free(personas);
+    int tamaPer,tama;
+    longitud(&tama);
+    personas = crearPersonas(personas,tama);
+
+    mostrarDatos(personas,tama);
+    //free(personas);
     return 0;
+    free(personas);
 }
-void crearTelefonos(Telefono *telefono){
+void longitud(int*tam){
+    printf("\nCuantas personas registrarás?");
+    scanf("%d",tam); 
+}
+Telefono* crearTelefonos(Telefono * telefono){
     int tam = 1,i;
    // printf("\nCuantas agendas quiere tiene?");
    // scanf("%d",&tam); 
@@ -68,46 +75,42 @@ void crearTelefonos(Telefono *telefono){
         printf("\nIntroduce su telefono oficina %d: ",i+1);
         scanf("%d",&telefono[i].oficina);
     }
+    return telefono;
 }
-void crearPersonas(Persona *gente, int *tam){
+Persona* crearPersonas(Persona *gente, int tam){
     int i;
-    printf("\nCuantas personas registrarás?");
-    scanf("%d",tam); 
-    gente = (Persona *)malloc((*tam)*sizeof(Persona));
+    gente = (Persona *)malloc((tam)*sizeof(Persona));
     if(gente == NULL) printf("No hay memoria disponible\n"); 
-    for (i = 0; i < *tam; i++)
+    for (i = 0; i < tam; i++)
     {
-        printf("\n Como se llama la persona %d ? ",(i+1));
+        printf("\nComo se llama la persona %d ? ",(i+1));
         scanf("%s",gente[i].nombre);
-        printf("\n Cual es su apellido paterno? ");
+        printf("\nCual es su apellido paterno? ");
         scanf("%s",gente[i].ap_paterno);
-        printf("\n Cual es su apellido materno? ");
+        printf("\nCual es su apellido materno? ");
         scanf("%s",gente[i].ap_materno);
-        printf("\n Cual es la edad de %s? ",gente[i].nombre);
+        printf("\nCual es la edad de %s? ",gente[i].nombre);
         scanf("%d",&gente[i].edad);
-        crearTelefonos(gente[i].telefono);
-    }
-    
-    
-    
-    
+        Telefono*tel;
+        gente[i].telefono = crearTelefonos(tel);
+    } 
+    return gente;
 }
-void mostrarDatos(Persona *persona,int *tama){
-    int sizePersona = *tama;
+void mostrarDatos(Persona *persona,int tama){
+    int sizePersona = tama;
     int sizeTelefono;
-    printf("%d",sizePersona);
     int i,j;
     for ( i = 0; i < sizePersona; i++)
     {
         printf("Saludos %s %s %s!\n",persona[i].nombre,persona[i].ap_paterno,persona[i].ap_materno);
         printf("Sabias que tiene %d anios?\n",persona[i].edad);
-        printf("Sus telefonos son: ");
-        sizeTelefono = sizeof(persona[i].telefono)/sizeof(persona[i].telefono[0]);
+        printf("Sus telefonos son: \n");
+        sizeTelefono = 1;
         for ( j = 0; j < sizeTelefono; j++)
         {
-            printf("    %d\n",persona[i].telefono[j].movil);
-            printf("    %d\n",persona[i].telefono[j].oficina);
-            printf("    %d\n",persona[i].telefono[j].casa);
+            printf("    Movil:   %d\n",persona[i].telefono[j].movil);
+            printf("    Oficina: %d\n",persona[i].telefono[j].oficina);
+            printf("    Casa:    %d\n",persona[i].telefono[j].casa);
         }
         
     }
