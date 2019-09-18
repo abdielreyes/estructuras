@@ -1,0 +1,4 @@
+Compilar librerias de math
+
+gcc [Archivos] -o [ejecutable] -lm
+
